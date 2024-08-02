@@ -13,4 +13,9 @@ Para este projeto, utilizaremos alguns conceitos de OAuth2 e OpenID. é necessá
 
 ---
 
+# Portal Azure 
+
+Primeiro vamos fazer o registro do nosso aplicativo no [Portal da Azure](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
+
+
 ### Siga para a pasta "Backend"

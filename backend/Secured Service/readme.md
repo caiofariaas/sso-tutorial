@@ -41,3 +41,5 @@ spring.security.oauth2.resourceserver.jwt.issuer-uri=https://login.microsoftonli
 server.port = 9000
 ```
 Utilizamos o issuer-uri para verificar se o Token recebido na requisição realmente foi emitido pelo provedor confiável, e támbem para processar e validar esta informação.
+---
+Siga para Gateway

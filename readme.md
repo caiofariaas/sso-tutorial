@@ -17,10 +17,33 @@ Para este projeto, utilizaremos alguns conceitos de OAuth2 e OpenID. é necessá
 
 Primeiro vamos fazer o registro do nosso aplicativo no [Portal da Azure](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
 
-Após acessar o link, devemos clicar no botão "+ Novo registro", localizado no canto superior esquerdo da tela.
+- Após acessar o link, devemos clicar no botão "+ Novo registro", localizado no canto superior esquerdo da tela.
 
-Após a tela de registrar um aplicativo aparecer, deve-se colocar as seguintes informações:
+- Após a tela de registrar um aplicativo aparecer, deve-se colocar as seguintes informações:
+<img src="https://raw.githubusercontent.com/caiofariaas/sso-tutorial/master/assets/novo_aplicativo.png" alt="Diagrama" width="600"/>
 
+Com o aplicativo criado, temos que configurar algumas coisas para que o acesso seja concedido!
 
+- O próximo passo é entrar no seu aplicativo e navegar até a aba "proprietários". No canto superior esquerdo você pode localizar o botão "+ Adicionar proprietários", clique nele e, na aba que abriu, há uma barra de pesquisa, nela adicione algum instrutor como proprietário.  
+⚠️ **Lembre-se sempre de pedir autorização pro instrutor em questão**
+
+A próxima parte é **opcional**, serve apenas em casos de permissões diferentes para os usuários.
+
+- Para adicionar essas funções você deve navegar até "funções de aplicativo". Dentro de "funções de aplicativo" há o botão "+ Criar uma função de aplicativo", ele fica localizado no mesmo lugar dos demais. Na aba que abriu, você deve preencher com as seguintes informações:  
+PS: O "Nome de exibição" e "Valor" são coisas que você pode alterar para o nome que desejar!
+<img src="https://raw.githubusercontent.com/caiofariaas/sso-tutorial/master/assets/adm.png" alt="Diagrama" width="600"/>   
+
+- Após preencher as informações, devemos adicionar um usuário como admin (ou com o nome da role que você acabou de criar)
+Para isso, devemos ir até a barra de pesquisa que fica localizada no topo de página e procurar por "Aplicativos Empresariais". Após acessar essa página, procuramos nosso aplicativo pela barra de pesquisa menor que fica acima da lista de aplicativos. Assim que localizar, clique no seu aplicativo e vá até a aba "Usuários e grupos", dentro dela clique no botão "+ Adicionar um usuário ou um grupo". Assim que a página abrir, primeiro devemos selecionar um usuário para atribuir aquela função, então clicamos em "Nenhum Selecionado", logo abaixo de "Usuários e grupos" e procuramos pelo usuário desejado (Por exemplo, da ETS). Após selecionarmos o usuário, selecionamos a função dele, clicamos novamente em "Nenhum selecionado", abaixo de "Selecionar uma função" e selecionamos a função criada anteriormente, no caso exemplificado, "Admin".
+
+Agora voltamos para uma parte **obrigatória**, ainda dentro de "Aplicativos Empresariais".
+
+- Navegue até a aba "Proprietários" e clique em "+ Adicionar". Após isso, procure na barra de pesquisa dentro da aba aberta o mesmo instrutor que você adicionou anteriormente.
+
+- Após o passo anterior ser concluído, voltamos para "Registros de Aplicativo", podemos seguir os mesmos passos para achar "Aplicativos Empresariais", e achamos nosso aplicativo novamente, pela barra de pesquisa. Após clicar em sue aplicativo, vá até a aba "Autenticação" e clique em "+ Adicionar uma plataforma". Após abrir a página de autenticação, clique no botão "+ Adicionar uma plataforma". O próximo passo após a aba abrir é selecionar "Web", após isso você deve adicionar uma URI de redirecionamento, por exemplo http://localhost:7000, lembre-se de que essa URI vai ser utilizada durante o desenvolvimento da aplicação. Após adicionar a URI, fique na mesma página de "Autenticação" e role até encontrar as seguintes caixas de seleção: "Tokens de acesso" e "Tokens de ID", selecione ambas as caixas e salve novamente.
+
+- O penúltimo passo é adicionar um client secret! Para isso, vá até a aba "Certificados e segredos", clique no botão "+ Novo segredo do cliente". Após a aba abrir, adicione na descrição o que quiser e selecione o tempo desejado de expiração. Após adicionar a secret você verá ela na lista de segredos, localize o atributo "Valor" dentro dela e copie esse valor. É importante ressaltar que esse valor não será mostrado novamente, portanto guarde esse valor em algum local. Se por acaso você perder o valor, você pode deletar a chave e fazer outra, sem problemas.
+
+- Finalmente, o último passo. Para concluir toda a configuração, você deve ir até a aba "Permissões de APIs" e, dentro dela, localize a parte "Permissões configuradas". Dentro de "Permissões configuradas", se tiver alguma permissão, tire ela e deixe sem nada. Agora vamos adicionar as permissões necessárias, clique em "+ Adicionar uma permissão". Após a aba abrir selecione Microsoft Graph e selecione em seguida "Permissões delegadas".  Role um pouco para baixo e localize "Permissões de OpenId", dentro dessa parte selecione "email", "openid" e "profile" e adicione essas permissões.
 
 ### Siga para a pasta "Backend"

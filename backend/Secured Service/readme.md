@@ -42,4 +42,4 @@ server.port = 9000
 ```
 Utilizamos o issuer-uri para verificar se o Token recebido na requisição realmente foi emitido pelo provedor confiável, e támbem para processar e validar esta informação.
 ---
-Siga para Gateway
+### Siga para Gateway

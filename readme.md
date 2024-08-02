@@ -17,5 +17,10 @@ Para este projeto, utilizaremos alguns conceitos de OAuth2 e OpenID. é necessá
 
 Primeiro vamos fazer o registro do nosso aplicativo no [Portal da Azure](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
 
+Após acessar o link, devemos clicar no botão "+ Novo registro", localizado no canto superior esquerdo da tela.
+
+Após a tela de registrar um aplicativo aparecer, deve-se colocar as seguintes informações:
+
+
 
 ### Siga para a pasta "Backend"

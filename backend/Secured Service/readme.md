@@ -28,7 +28,7 @@ public class ResourceController {
 - Injeta o JWT autenticado atual no método. O JWT é utilizado para obter informações sobre o usuário autenticado.
 
 ```Java
-  @@AuthenticationPrincipal Jwt jwt
+  @AuthenticationPrincipal Jwt jwt
   ```
 
 ## Segundo Passo

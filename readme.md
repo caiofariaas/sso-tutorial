@@ -46,4 +46,6 @@ Agora voltamos para uma parte **obrigatória**, ainda dentro de "Aplicativos Emp
 
 - Finalmente, o último passo. Para concluir toda a configuração, você deve ir até a aba "Permissões de APIs" e, dentro dela, localize a parte "Permissões configuradas". Dentro de "Permissões configuradas", se tiver alguma permissão, tire ela e deixe sem nada. Agora vamos adicionar as permissões necessárias, clique em "+ Adicionar uma permissão". Após a aba abrir selecione Microsoft Graph e selecione em seguida "Permissões delegadas".  Role um pouco para baixo e localize "Permissões de OpenId", dentro dessa parte selecione "email", "openid" e "profile" e adicione essas permissões.
 
+---
+
 ### Siga para a pasta "Backend"

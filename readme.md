@@ -46,6 +46,20 @@ Agora voltamos para uma parte **obrigatória**, ainda dentro de "Aplicativos Emp
 
 - Finalmente, o último passo. Para concluir toda a configuração, você deve ir até a aba "Permissões de APIs" e, dentro dela, localize a parte "Permissões configuradas". Dentro de "Permissões configuradas", se tiver alguma permissão, tire ela e deixe sem nada. Agora vamos adicionar as permissões necessárias, clique em "+ Adicionar uma permissão". Após a aba abrir selecione Microsoft Graph e selecione em seguida "Permissões delegadas".  Role um pouco para baixo e localize "Permissões de OpenId", dentro dessa parte selecione "email", "openid" e "profile" e adicione essas permissões.
 
+
+Para prosseguir com o projeto é importante saber onde conseguir algumas informações:
+- Acesse visão geral, dentro de seu aplicativo. Na parte de cima você verá o título "Fundamentos", é dentro dessa parte que as informações estarão.
+- O **client id** é o código logo após "ID do aplicativo (cliente)"
+- O **tenant id** é o código logo após "ID do diretório (locatário)"
+
+Você usará esses códigos para "completar" alguns links. Para pegar esses links você deve acessar em "Visão geral" a parte de "Pontos de extremidade", que fica acima de "Fundamentos" que vimos anteriormente. Dentro de "Pontos de extremidade" você deve pegar os seguintes links:
+- Ponto de extremidade de autorização OAuth 2.0 (v2)
+- Ponto de extremidade do token OAuth 2.0 (v2)
+
+Tem alguns links que não ficam dentro da azure, passaremos eles pra vocês apenas completarem com a informação necessária.
+- ISSUER URI: https://login.microsoftonline.com/{tenant_id}/v2.0
+- JWK SET URI: https://login.microsoftonline.com/{tenant_id}/discovery/v2.0/keys
+
 ---
 
 ### Siga para a pasta "Backend"

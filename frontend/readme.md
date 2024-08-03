@@ -2,7 +2,7 @@
 Para o Frontend nós utilizaremos o React com Vite, crie um projeto normalmente utilizando o Vite e o Javascript
 
 ## Primeiro Passo:
-- `vite.config.js`
+- Configuração do proxy para redirecionar as requisições para o Gateway  `vite.config.js`
 ```Javascript
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -105,7 +105,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/userinfo`);
+        const response = await axios.get(`${API_BASE_URL}/userinfo`); 
         const userData = response.data;
 
         setUserInfo(userData);
@@ -174,11 +174,11 @@ const ResourceFetcher = () => {
 
   useEffect(() => {
     const fetchResource = async () => {
-      const token = localStorage.getItem("id_token"); 
+      const token = localStorage.getItem("id_token"); // Pegar o token anteriormente armazenado no localStorage
 
       if (token) {
         try {
-          const response = await axios.get(`${API_BASE_URL}/resource`, {
+          const response = await axios.get(`${API_BASE_URL}/resource`, { // Fazer a requisição passando o token no header
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -200,6 +200,8 @@ const ResourceFetcher = () => {
     fetchResource();
   }, []);
 
+  // Exibir Recurso Protegido
+
   return (
     <div>
       <h1>Recurso Protegido</h1>
@@ -217,5 +219,7 @@ const ResourceFetcher = () => {
 export default ResourceFetcher;
 
 ```
+
+## Fim!
   
   

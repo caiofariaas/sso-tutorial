@@ -220,6 +220,5 @@ export default ResourceFetcher;
 
 ```
 
-## Fim!
-  
-  
+### Caso tenha alguma duvida sobre qualquer um dos processos, entre em contato conosco!
+#### Caio Farias & Amber Forte

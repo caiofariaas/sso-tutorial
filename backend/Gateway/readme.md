@@ -59,8 +59,8 @@ spring:
       client:
         registration:
           azure:
-            client-id: ${CLIENT_ID}
-            client-secret: ${CLIENT_SECRET}
+            client-id: ${CLIENT_ID_AUZURE}
+            client-secret: ${CLIENT_SECRET_AZURE}
             scope: openid, profile, email
 
             redirect-uri: http://localhost:3000/callback  # Necessário ser a mesma cadastrada na Azure
@@ -70,10 +70,10 @@ spring:
 
         provider:
           azure:
-            issuer-uri: ${ISSUER__URI}
-            authorization-uri: ${AUTH_URI}
-            token-uri: ${TOKEN_URI}
-            jwk-set-uri: ${JWK_SET_URI}
+            issuer-uri: ${ISSUER__URI_AZURE} # Mesmo presente no Secured-Service
+            authorization-uri: ${AUTH_URI_AZURE}
+            token-uri: ${TOKEN_URI_AZURE}
+            jwk-set-uri: ${JWK_SET_URI_AZURE}
 
   cloud:
     gateway:
@@ -82,7 +82,7 @@ spring:
 
       routes:
         - id: resource
-          uri: http://localhost:9000 # URI para onde a requisição será roteada 
+          uri: http://localhost:9000 # URI para onde a requisição será roteada (URI do Secured-Service)
           predicates: # A rota será usada para requisições com o caminho /resource.
             - Path=/resource
 
@@ -131,7 +131,7 @@ public class SecurityConfig {
   SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
     http.csrf(ServerHttpSecurity.CsrfSpec::disable).cors(ServerHttpSecurity.CorsSpec::disable);
 
-    // - Permite acesso público ao caminho "/login" e autenticação para qualquer outro caminho.
+    // - Permite acesso público ao caminho "/login" e requer autenticação para qualquer outro caminho.
 
     http.authorizeExchange(conf -> conf
                     .pathMatchers("/login").permitAll()

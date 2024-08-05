@@ -37,7 +37,7 @@ public class ResourceController {
   
 ```Properties
 spring.application.name=secured-service
-spring.security.oauth2.resourceserver.jwt.issuer-uri=https://login.microsoftonline.com/{tenant-id}/v2.0
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://login.microsoftonline.com/{TENANT_ID}/v2.0 # Lembre-se de alterar o TENANT_ID
 server.port = 9000
 ```
 Utilizamos o issuer-uri para verificar se o Token recebido na requisição realmente foi emitido pelo provedor confiável, e támbem para processar e validar esta informação.

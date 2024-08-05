@@ -58,6 +58,11 @@ Aqui nós configuramos o proxy do servidor para que ele redirecione as rotas par
 - Criação das rotas
 `Routes.jsx`
 ```Javascript
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import ResourceFetcher from './ResourceFetcher';
+import Profile from './Profile';
+
 const AppRoutes = () => (
   <Routes>
     <Route path="/resource" element={<ResourceFetcher />} />
@@ -70,6 +75,10 @@ export default AppRoutes;
 ## Terceiro Passo
 - `App.jsx`
 ```Javascript
+import React from 'react';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import AppRoutes from './components/Routes';
+
 const App = () => {
   const handleLogin = () => {
     window.location.href = 'http://localhost:3000/oauth2/authorization/azure'; // Redireciona para o Login (SSO)
@@ -96,7 +105,10 @@ export default App;
 - `Profile.jsx`
   
 ```Javascript
-  const API_BASE_URL = "http://localhost:3000"; // Base URL para as requisições
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const API_BASE_URL = "http://localhost:3000"; // Base URL para as requisições
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -167,6 +179,9 @@ export default Profile;
 ## Quinto Passo
 - Criar Componente para fazer a requisição ao recurso protegido de nosso backend `ResourceFetcher.jsx`
 ```Javascript
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 const API_BASE_URL = "http://localhost:3000"; // Base URL para as requisições
 
 const ResourceFetcher = () => {

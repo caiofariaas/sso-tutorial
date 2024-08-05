@@ -49,16 +49,16 @@ Agora voltamos para uma parte **obrigatória**, ainda dentro de "Aplicativos Emp
 
 Para prosseguir com o projeto é importante saber onde conseguir algumas informações:
 - Acesse visão geral, dentro de seu aplicativo. Na parte de cima você verá o título "Fundamentos", é dentro dessa parte que as informações estarão.
-- O **client id** é o código logo após "ID do aplicativo (cliente)"
-- O **tenant id** é o código logo após "ID do diretório (locatário)"
+- O **CLIENT ID** é o código logo após "ID do aplicativo (cliente)"
+- O **TENANT ID** é o código logo após "ID do diretório (locatário)"
 
 Você usará esses códigos para "completar" alguns links. Para pegar esses links você deve acessar em "Visão geral" a parte de "Pontos de extremidade", que fica acima de "Fundamentos" que vimos anteriormente. Dentro de "Pontos de extremidade" você deve pegar os seguintes links:
-- Ponto de extremidade de autorização OAuth 2.0 (v2)
-- Ponto de extremidade do token OAuth 2.0 (v2)
+- `${AUTH_URI_AZURE}`: Ponto de extremidade de autorização OAuth 2.0 (v2) 
+- `${TOKEN_URI_AZURE}`: Ponto de extremidade do token OAuth 2.0 (v2) 
 
 Tem alguns links que não ficam dentro da azure, passaremos eles pra vocês apenas completarem com a informação necessária.
-- ISSUER URI: https://login.microsoftonline.com/{tenant_id}/v2.0
-- JWK SET URI: https://login.microsoftonline.com/{tenant_id}/discovery/v2.0/keys
+- `${ISSUER__URI_AZURE}`: https://login.microsoftonline.com/{TENANT_ID}/v2.0
+- `${JWK_SET_URI_AZURE}`: https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys
 
 ---
 

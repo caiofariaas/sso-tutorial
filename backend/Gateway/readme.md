@@ -141,7 +141,6 @@ public class SecurityConfig {
             // - Redireciona para "/profile" após a autenticação bem-sucedida.
 
             .oauth2Login(conf -> conf
-                    .authorizationRequestResolver(authorizationRequestResolver(clientRegistrationRepository))
                     .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:3000/profile")))
 
             // - Define o decodificador JWT para validar tokens de acesso.
@@ -156,14 +155,6 @@ public class SecurityConfig {
   @Bean
   public ReactiveJwtDecoder jwtDecoder() {
     return NimbusReactiveJwtDecoder.withJwkSetUri(jwkSetUri).build();
-  }
-
-  // - Configura o resolvedor para usar PKCE (Proof Key for Code Exchange) para maior segurança.
-
-  private ServerOAuth2AuthorizationRequestResolver authorizationRequestResolver(ReactiveClientRegistrationRepository clientRegistrationRepository) {
-    var authorizationRequestResolver = new DefaultServerOAuth2AuthorizationRequestResolver(clientRegistrationRepository);
-    authorizationRequestResolver.setAuthorizationRequestCustomizer(OAuth2AuthorizationRequestCustomizers.withPkce());
-    return authorizationRequestResolver;
   }
 }
 ```

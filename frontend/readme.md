@@ -47,6 +47,11 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/callback/, ''),
       },
+      '/logout': {
+        target: URL,
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/gateway/, ''),
     }
   }
 });

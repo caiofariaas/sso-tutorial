@@ -59,7 +59,7 @@ Você usará esses códigos para "completar" alguns links. Para pegar esses link
 Tem alguns links que não ficam dentro da azure, passaremos eles pra vocês apenas completarem com a informação necessária.
 - `${ISSUER__URI_AZURE}`: https://login.microsoftonline.com/{TENANT_ID}/v2.0
 - `${JWK_SET_URI_AZURE}`: https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys
-
+- `${LOGOUT_URI}`: https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/logout?post_logout_redirect_uri={URI_REDIRECIONAMENTO}  (ex: http://localhost:5173/login)
 ---
 
 ### Siga para a pasta "Backend"

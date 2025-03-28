@@ -20,3 +20,6 @@ um sendo o nomeado como '**Gateway**' e o outro como '**Secured Service**'
 - Reactive Gateway
 ---
 Siga para a pasta Secured Service
+
+### Caso tenha alguma duvida sobre qualquer um dos processos, entre em contato conosco!
+#### Caio Farias & Amber Forte

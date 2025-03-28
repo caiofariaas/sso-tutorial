@@ -47,6 +47,9 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/callback/, ''),
       },
+
+      // Proxy para a rota de logout (se houver)
+
       '/logout': {
         target: URL,
         changeOrigin: true,

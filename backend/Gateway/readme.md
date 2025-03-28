@@ -63,7 +63,8 @@ spring:
             client-secret: ${CLIENT_SECRET_AZURE}
             scope: openid, profile, email
 
-            redirect-uri: http://localhost:3000/callback  # Necessário ser a mesma cadastrada na Azure
+            redirect-uri: http://localhost:3000/callback  # Necessário ser a mesma cadastrada na Azure, porém a porta deve ser do seu frontend, por exemplo 'http://localhost:5173/callback'
+
             provider: azure
 
         # Configuração do provedor de identidade Azure.
@@ -117,46 +118,51 @@ logging:
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-  // Injeta o repositório de registro de clientes OAuth2, utilizado para gerenciar registros de clientes OAuth2.
+    // Injeta o repositório de registro de clientes OAuth2, utilizado para gerenciar registros de clientes OAuth2.
 
-  @Autowired
-  private ReactiveClientRegistrationRepository clientRegistrationRepository;
+    @Autowired
+    private ReactiveClientRegistrationRepository clientRegistrationRepository;
 
-  // Injeta o URI do JWK Set (JSON Web Key Set) presente no `application.yaml`.
+    // Injeta o URI do JWK Set (JSON Web Key Set) presente no `application.yaml`.
 
-  @Value("${spring.security.oauth2.client.provider.azure.jwk-set-uri}")
-  private String jwkSetUri;
+    @Value("${spring.security.oauth2.client.provider.azure.jwk-set-uri}")
+    private String jwkSetUri;
 
-  @Bean
-  SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-    http.csrf(ServerHttpSecurity.CsrfSpec::disable).cors(ServerHttpSecurity.CorsSpec::disable);
+    @Value("${LOGOUT_URI}")  // Ex: URI de logout do Azure
+    private String logoutURI;
 
-    // - Permite acesso público ao caminho "/login" e requer autenticação para qualquer outro caminho.
+    @Bean
+    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        http.csrf(ServerHttpSecurity.CsrfSpec::disable).cors(ServerHttpSecurity.CorsSpec::disable);
 
-    http.authorizeExchange(conf -> conf
-                    .pathMatchers("/login").permitAll()
-                    .anyExchange().authenticated())
+        // - Permite acesso público ao caminho "/login" e requer autenticação para qualquer outro caminho.
 
-            // - Define o resolvedor de requisições de autorização.
-            // - Redireciona para "/profile" após a autenticação bem-sucedida.
+        http.authorizeExchange(conf -> conf
+                        // Permite que os endpoints /login e /logout sejam acessados sem autenticação
 
-            .oauth2Login(conf -> conf
-                    .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:3000/profile")))
+                        .pathMatchers("/login").permitAll()
 
-            // - Define o decodificador JWT para validar tokens de acesso.
+                        // Qualquer outro endpoint só pode ser acessado com autenticação
+                        .anyExchange().authenticated())
 
-            .oauth2ResourceServer(conf -> conf
-                    .jwt(jwt -> jwt.jwtDecoder(jwtDecoder())));
-    return http.build();
-  }
+                // - Define o resolvedor de requisições de autorização.
+                // - Redireciona para "/profile" após a autenticação bem-sucedida.
 
-  // Cria um bean para o decodificador de JWTs usando o URI do JWK SET que configuramos acima!.
+                .oauth2Login(conf -> conf
+                        .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:3000/profile")))
+                // - Define o decodificador JWT para validar tokens de acesso.
+                .oauth2ResourceServer(conf -> conf
+                        .jwt(jwt -> jwt.jwtDecoder(jwtDecoder())))
+        return http.build();
+    }
 
-  @Bean
-  public ReactiveJwtDecoder jwtDecoder() {
-    return NimbusReactiveJwtDecoder.withJwkSetUri(jwkSetUri).build();
-  }
+    // Cria um bean para o decodificador de JWTs usando o URI do JWK SET que configuramos acima!.
+    @Bean
+    public ReactiveJwtDecoder jwtDecoder() {
+        return NimbusReactiveJwtDecoder.withJwkSetUri(jwkSetUri).build();
+    }
 }
+
 ```
 ---
 # Logout
@@ -169,59 +175,62 @@ public class SecurityConfig {
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-  // Injeta o repositório de registro de clientes OAuth2, utilizado para gerenciar registros de clientes OAuth2.
+    // Injeta o repositório de registro de clientes OAuth2, utilizado para gerenciar registros de clientes OAuth2.
 
-  @Autowired
-  private ReactiveClientRegistrationRepository clientRegistrationRepository;
+    @Autowired
+    private ReactiveClientRegistrationRepository clientRegistrationRepository;
 
-  // Injeta o URI do JWK Set (JSON Web Key Set) presente no `application.yaml`.
+    // Injeta o URI do JWK Set (JSON Web Key Set) presente no `application.yaml`.
 
-  @Value("${spring.security.oauth2.client.provider.azure.jwk-set-uri}")
-  private String jwkSetUri;
+    @Value("${spring.security.oauth2.client.provider.azure.jwk-set-uri}")
+    private String jwkSetUri;
 
-  @Value("${LOGOUT_URI}")  // Ex: URI de logout do Azure
-  private String logoutURI;
+    @Value("${LOGOUT_URI}")  // Ex: URI de logout do Azure
+    private String logoutURI;
 
-  @Bean
-  SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-    http.csrf(ServerHttpSecurity.CsrfSpec::disable).cors(ServerHttpSecurity.CorsSpec::disable);
+    @Bean
+    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        http.csrf(ServerHttpSecurity.CsrfSpec::disable).cors(ServerHttpSecurity.CorsSpec::disable);
 
-    // - Permite acesso público ao caminho "/login" e requer autenticação para qualquer outro caminho.
+        // - Permite acesso público ao caminho "/login" e requer autenticação para qualquer outro caminho.
 
-    http.authorizeExchange(conf -> conf
-                    .pathMatchers("/login").permitAll()
-                    .anyExchange().authenticated())
+        http.authorizeExchange(conf -> conf
+                        // Permite que os endpoints /login e /logout sejam acessados sem autenticação
 
-            // - Define o resolvedor de requisições de autorização.
-            // - Redireciona para "/profile" após a autenticação bem-sucedida.
+                        .pathMatchers("/login", "/logout").permitAll()
 
-            .oauth2Login(conf -> conf
-                    .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:3000/profile")))
+                        // Qualquer outro endpoint só pode ser acessado com autenticação
+                        .anyExchange().authenticated())
 
-            // - Define o decodificador JWT para validar tokens de acesso.
+                // - Define o resolvedor de requisições de autorização.
+                // - Redireciona para "/profile" após a autenticação bem-sucedida.
 
-            .oauth2ResourceServer(conf -> conf
-                    .jwt(jwt -> jwt.jwtDecoder(jwtDecoder())));
-           // - Define o método acessado ao realizar logout
-            .logout(logout -> logout
-                    .logoutSuccessHandler(azureLogoutSuccessHandler()));
-    return http.build();
-  }
+                .oauth2Login(conf -> conf
+                        .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:3000/profile")))
+                // - Define o decodificador JWT para validar tokens de acesso.
+                .oauth2ResourceServer(conf -> conf
+                        .jwt(jwt -> jwt.jwtDecoder(jwtDecoder())))
+                // Configuração do logout
+                .logout(logout -> logout
+                        // Quando o logout for feito com sucesso, esse interpretador será utilizado
+                        .logoutSuccessHandler(azureLogoutSuccessHandler()));
+        return http.build();
+    }
 
-  // Cria um bean para o decodificador de JWTs usando o URI do JWK SET que configuramos acima!.
+    // Cria um bean para o decodificador de JWTs usando o URI do JWK SET que configuramos acima!.
+    @Bean
+    public ReactiveJwtDecoder jwtDecoder() {
+        return NimbusReactiveJwtDecoder.withJwkSetUri(jwkSetUri).build();
+    }
 
-  @Bean
-  public ReactiveJwtDecoder jwtDecoder() {
-    return NimbusReactiveJwtDecoder.withJwkSetUri(jwkSetUri).build();
-  }
-  @Bean
-  public ServerLogoutSuccessHandler azureLogoutSuccessHandler() {
-    return (exchange, authentication) -> {
-        ServerWebExchange webExchange = exchange.getExchange();
-        // Redireciona o usuário para o endpoint de logout do Azure
-        webExchange.getResponse().setStatusCode(HttpStatus.FOUND);
-            webExchange.getResponse().getHeaders().setLocation(URI.create(logoutURI));  
-        return webExchange.getResponse().setComplete();
+    @Bean
+    public ServerLogoutSuccessHandler azureLogoutSuccessHandler() {
+        return (exchange, authentication) -> {
+            ServerWebExchange webExchange = exchange.getExchange();
+            // Redireciona o usuário para o endpoint de logout do Azure
+            webExchange.getResponse().setStatusCode(HttpStatus.FOUND);
+            webExchange.getResponse().getHeaders().setLocation(URI.create(logoutURI));
+            return webExchange.getResponse().setComplete();
         };
     }
 }

@@ -63,7 +63,8 @@ spring:
             client-secret: ${CLIENT_SECRET_AZURE}
             scope: openid, profile, email
 
-            redirect-uri: http://localhost:3000/callback  # Necessário ser a mesma cadastrada na Azure, porém a porta deve ser do seu frontend, por exemplo 'http://localhost:5173/callback'
+            redirect-uri: http://localhost:3000/callback  # Necessário ser a mesma cadastrada na Azure,
+porém a porta deve ser a mesma do seu frontend, por exemplo 'http://localhost:5173/callback'
 
             provider: azure
 

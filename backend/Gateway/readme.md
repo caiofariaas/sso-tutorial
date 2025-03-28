@@ -70,7 +70,7 @@ spring:
 
         provider:
           azure:
-            issuer-uri: ${ISSUER__URI_AZURE} # Mesmo presente no Secured-Service
+            issuer-uri: ${ISSUER_URI_AZURE} # Mesmo presente no Secured-Service
             authorization-uri: ${AUTH_URI_AZURE}
             token-uri: ${TOKEN_URI_AZURE}
             jwk-set-uri: ${JWK_SET_URI_AZURE}

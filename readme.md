@@ -63,3 +63,6 @@ Tem alguns links que não ficam dentro da azure, passaremos eles pra vocês apen
 ---
 
 ### Siga para a pasta "Backend"
+
+### Caso tenha alguma duvida sobre qualquer um dos processos, entre em contato conosco!
+#### Caio Farias & Amber Forte

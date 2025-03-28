@@ -239,3 +239,6 @@ public class SecurityConfig {
 
 ---
 ### Siga para o Frontend
+
+### Caso tenha alguma duvida sobre qualquer um dos processos, entre em contato conosco!
+#### Caio Farias & Amber Forte

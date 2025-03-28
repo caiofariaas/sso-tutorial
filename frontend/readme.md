@@ -89,7 +89,8 @@ import AppRoutes from './components/Routes';
 
 const App = () => {
   const handleLogin = () => {
-    window.location.href = 'http://localhost:3000/oauth2/authorization/azure'; // Redireciona para o Login (SSO)
+    // Substitua pela porta que seu frontend está rodando
+    window.location.href = 'http://localhost:5173/oauth2/authorization/azure'; // Redireciona para o Login (SSO)
   };
 
   return (
@@ -116,7 +117,7 @@ export default App;
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3000"; // Base URL para as requisições
+const API_BASE_URL = "http://localhost:5173"; // Base URL para as requisições
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -190,7 +191,7 @@ export default Profile;
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3000"; // Base URL para as requisições
+const API_BASE_URL = "http://localhost:5173"; // Base URL para as requisições
 
 const ResourceFetcher = () => {
   const [data, setData] = useState(null);
